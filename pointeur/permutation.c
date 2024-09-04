@@ -3,7 +3,7 @@
 
 void permuter(int *adr_a, int *adr_b)
 {
-	int temp = *adr_a;
+	const int temp = *adr_a;
 	*adr_a = *adr_b;
 	*adr_b = temp;
 }

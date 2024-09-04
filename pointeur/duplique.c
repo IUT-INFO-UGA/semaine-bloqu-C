@@ -5,7 +5,7 @@
 char *copier_chaine(const char *str)
 {
 	const int size = strlen(str);
-	char *copy = malloc(size + 1);
+	char *copy = malloc(sizeof(char) + 1);
 	if (copy == NULL)
 		return "\0";
 	strcpy(copy, str);
