@@ -7,16 +7,23 @@ void repeat(int repeat, char ch)
 		printf("%c", ch);
 	}
 }
-int main(void)
+int main(int argc, char **argv)
 {
-	int height = 0;
-	printf("hauteur ? ");
-	scanf("%d", &height);
+
+	if (argc != 3)
+	{
+		printf("You must use 2 parameters");
+		return EXIT_FAILURE;
+	}
+
+	int height = atoi(argv[1]);
 
 	for (int i = 1; i <= height; i++)
 	{
 		repeat(height - i, ' ');
-		repeat(2 * i - 1, '*');
+
+		repeat(2 * i - 1, argv[2][0]);
+
 		printf("\n");
 	}
 
