@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <naivepgmio.h>
+#include <time.h>
+
 #include "traitement.h"
 #include "allocation.h"
+
 void pgm_show(char *filename)
 {
 	char *command = malloc(strlen(filename) + 6);
@@ -16,45 +19,51 @@ void pgm_show(char *filename)
 
 int main()
 {
-	size_t width = 400;
-	size_t height = 534;
+	const int start = clock();
+	for (size_t i = 0; i < 50; i++)
+	{
 
-	/* -------- copie -------- */
-	// pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
-	// pgm_naivewrite("output.pgm", image, width, height);
+		size_t width = 400;
+		size_t height = 534;
 
-	/* -------- creation -------- */
-	// pgm_t_pixel *image = pgm_malloc(width, height);
-	// if (image == NULL)
-	// {
-	// 	printf("Échec de l'allocation mémoire\n");
-	// 	return EXIT_FAILURE;
-	// }
-	// pgm_solid(image, width, height, 255);
-	// pgm_naivewrite("output.pgm", image, width, height);
+		/* -------- copie -------- */
+		// pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
+		// pgm_naivewrite("output.pgm", image, width, height);
 
-	/* -------- inversion -------- */
-	// pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
-	// pgm_negative(image, width, height);
-	// pgm_naivewrite("output.pgm", image, width, height);
+		/* -------- creation -------- */
+		// pgm_t_pixel *image = pgm_malloc(width, height);
+		// if (image == NULL)
+		// {
+		// 	printf("Échec de l'allocation mémoire\n");
+		// 	return EXIT_FAILURE;
+		// }
+		// pgm_solid(image, width, height, 255);
+		// pgm_naivewrite("output.pgm", image, width, height);
 
-	/* -------- seuil -------- */
-	pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
-	pgm_threshold(image, 400, 534, 125);
-	pgm_naivewrite("output.pgm", image, width, height);
+		/* -------- inversion -------- */
+		// pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
+		// pgm_negative(image, width, height);
+		// pgm_naivewrite("output.pgm", image, width, height);
 
-	/* -------- dgradé -------- */
-	// pgm_t_pixel *image = pgm_malloc(width, height);
-	// if (image == NULL)
-	// {
-	// 	printf("Échec de l'allocation mémoire\n");
-	// 	return EXIT_FAILURE;
-	// }
-	// pgm_gradient(image, width, height);
-	// pgm_naivewrite("output.pgm", image, width, height);
-	/* -------- main -------- */
-	pgm_show("output.pgm");
-	pgm_free(image);
+		/* -------- seuil -------- */
+		pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
+		pgm_threshold(image, 400, 534, 125);
+		pgm_naivewrite("output.pgm", image, width, height);
 
+		/* -------- dgradé -------- */
+		// pgm_t_pixel *image = pgm_malloc(width, height);
+		// if (image == NULL)
+		// {
+		// 	printf("Échec de l'allocation mémoire\n");
+		// 	return EXIT_FAILURE;
+		// }
+		// pgm_gradient(image, width, height);
+		// pgm_naivewrite("output.pgm", image, width, height);
+		/* -------- main -------- */
+		// pgm_show("output.pgm");
+		pgm_free(image);
+	}
+	const int end = clock();
+	printf("time in main: %fs, tick: %d", ((float)(end - start)) / CLOCKS_PER_SEC, end - start);
 	return EXIT_SUCCESS;
 }
