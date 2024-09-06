@@ -1,5 +1,12 @@
 #include "traitement.h"
 
+#define SEUIL1_PIXEL(pixelColor, threshold) ((pixelColor) < (threshold) ? (0) : (255))
+#if DEBUG
+#define AFFICHER_FUNCTION() (printf(__func__))
+#else
+#define AFFICHER_FUNCTION()
+#endif
+
 void pgm_solid(pgm_t_pixel *pixels, int width, int height, pgm_t_pixel color)
 {
 	for (int i = 0; i < width * height; i++)
@@ -20,15 +27,9 @@ void pgm_threshold(pgm_t_pixel *pixels, int width, int height, pgm_t_pixel thres
 {
 	for (int i = 0; i < width * height; i++)
 	{
-		if (pixels[i] < threshold)
-		{
-			pixels[i] = 0;
-		}
-		else
-		{
-			pixels[i] = 255;
-		}
+		pixels[i] = SEUIL1_PIXEL(pixels[i], threshold);
 	}
+	AFFICHER_FUNCTION();
 }
 
 void pgm_gradient(unsigned char *pixels, size_t width, size_t height)

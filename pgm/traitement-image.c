@@ -38,15 +38,20 @@ int main()
 	// pgm_negative(image, width, height);
 	// pgm_naivewrite("output.pgm", image, width, height);
 
-	/* -------- dgradé -------- */
-	pgm_t_pixel *image = pgm_malloc(width, height);
-	if (image == NULL)
-	{
-		printf("Échec de l'allocation mémoire\n");
-		return EXIT_FAILURE;
-	}
-	pgm_gradient(image, width, height);
+	/* -------- seuil -------- */
+	pgm_t_pixel *image = pgm_naiveread("guadalest.pgm", &width, &height);
+	pgm_threshold(image, 400, 534, 125);
 	pgm_naivewrite("output.pgm", image, width, height);
+
+	/* -------- dgradé -------- */
+	// pgm_t_pixel *image = pgm_malloc(width, height);
+	// if (image == NULL)
+	// {
+	// 	printf("Échec de l'allocation mémoire\n");
+	// 	return EXIT_FAILURE;
+	// }
+	// pgm_gradient(image, width, height);
+	// pgm_naivewrite("output.pgm", image, width, height);
 	/* -------- main -------- */
 	pgm_show("output.pgm");
 	pgm_free(image);
